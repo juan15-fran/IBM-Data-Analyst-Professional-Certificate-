@@ -1,0 +1,386 @@
+{
+  "metadata": {
+    "language_info": {
+      "file_extension": ".py",
+      "mimetype": "text/x-python",
+      "name": "python",
+      "version": "3.10.2"
+    },
+    "kernelspec": {
+      "name": "xeus-python",
+      "display_name": "Python (XPython)",
+      "language": "python"
+    }
+  },
+  "nbformat_minor": 4,
+  "nbformat": 4,
+  "cells": [
+    {
+      "cell_type": "code",
+      "source": "# Create the dictionary\n\nDict = {\"key1\": 1, \"key2\": \"2\", \"key3\": [3, 3, 3], \"key4\": (4, 4, 4), ('key5'): 5, (0, 1): 6}\nDict",
+      "metadata": {
+        "trusted": true
+      },
+      "execution_count": 1,
+      "outputs": [
+        {
+          "execution_count": 1,
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": "{'key1': 1,\n 'key2': '2',\n 'key3': [3, 3, 3],\n 'key4': (4, 4, 4),\n 'key5': 5,\n (0, 1): 6}"
+          },
+          "metadata": {}
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": "# Access to the value by the key\n\nDict[\"key1\"]",
+      "metadata": {
+        "trusted": true
+      },
+      "execution_count": 2,
+      "outputs": [
+        {
+          "execution_count": 2,
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": "1"
+          },
+          "metadata": {}
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": "# Access to the value by the key\n\nDict[(0, 1)]",
+      "metadata": {
+        "trusted": true
+      },
+      "execution_count": 3,
+      "outputs": [
+        {
+          "execution_count": 3,
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": "6"
+          },
+          "metadata": {}
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": "# Create a sample dictionary\n\nrelease_year_dict = {\"Thriller\": \"1982\", \"Back in Black\": \"1980\", \\\n                    \"The Dark Side of the Moon\": \"1973\", \"The Bodyguard\": \"1992\", \\\n                    \"Bat Out of Hell\": \"1977\", \"Their Greatest Hits (1971-1975)\": \"1976\", \\\n                    \"Saturday Night Fever\": \"1977\", \"Rumours\": \"1977\"}\nrelease_year_dict",
+      "metadata": {
+        "trusted": true
+      },
+      "execution_count": 4,
+      "outputs": [
+        {
+          "execution_count": 4,
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": "{'Thriller': '1982',\n 'Back in Black': '1980',\n 'The Dark Side of the Moon': '1973',\n 'The Bodyguard': '1992',\n 'Bat Out of Hell': '1977',\n 'Their Greatest Hits (1971-1975)': '1976',\n 'Saturday Night Fever': '1977',\n 'Rumours': '1977'}"
+          },
+          "metadata": {}
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": "# Get value by keys\n\nrelease_year_dict['Thriller'] ",
+      "metadata": {
+        "trusted": true
+      },
+      "execution_count": 5,
+      "outputs": [
+        {
+          "execution_count": 5,
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": "'1982'"
+          },
+          "metadata": {}
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": "# Get value by key\n\nrelease_year_dict['The Bodyguard'] ",
+      "metadata": {
+        "trusted": true
+      },
+      "execution_count": 6,
+      "outputs": [
+        {
+          "execution_count": 6,
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": "'1992'"
+          },
+          "metadata": {}
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": "# Get all the keys in dictionary\n\nrelease_year_dict.keys()",
+      "metadata": {
+        "trusted": true
+      },
+      "execution_count": 7,
+      "outputs": [
+        {
+          "execution_count": 7,
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": "dict_keys(['Thriller', 'Back in Black', 'The Dark Side of the Moon', 'The Bodyguard', 'Bat Out of Hell', 'Their Greatest Hits (1971-1975)', 'Saturday Night Fever', 'Rumours'])"
+          },
+          "metadata": {}
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": "# Get all the values in dictionary\n\nrelease_year_dict.values() ",
+      "metadata": {
+        "trusted": true
+      },
+      "execution_count": 8,
+      "outputs": [
+        {
+          "execution_count": 8,
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": "dict_values(['1982', '1980', '1973', '1992', '1977', '1976', '1977', '1977'])"
+          },
+          "metadata": {}
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": "# Append value with key into dictionary\n\nrelease_year_dict['Graduation'] = '2007'\nrelease_year_dict",
+      "metadata": {
+        "trusted": true
+      },
+      "execution_count": 9,
+      "outputs": [
+        {
+          "execution_count": 9,
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": "{'Thriller': '1982',\n 'Back in Black': '1980',\n 'The Dark Side of the Moon': '1973',\n 'The Bodyguard': '1992',\n 'Bat Out of Hell': '1977',\n 'Their Greatest Hits (1971-1975)': '1976',\n 'Saturday Night Fever': '1977',\n 'Rumours': '1977',\n 'Graduation': '2007'}"
+          },
+          "metadata": {}
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": "# Delete entries by key\n\ndel(release_year_dict['Thriller'])\ndel(release_year_dict['Graduation'])\nrelease_year_dict",
+      "metadata": {
+        "trusted": true
+      },
+      "execution_count": 10,
+      "outputs": [
+        {
+          "execution_count": 10,
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": "{'Back in Black': '1980',\n 'The Dark Side of the Moon': '1973',\n 'The Bodyguard': '1992',\n 'Bat Out of Hell': '1977',\n 'Their Greatest Hits (1971-1975)': '1976',\n 'Saturday Night Fever': '1977',\n 'Rumours': '1977'}"
+          },
+          "metadata": {}
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": "# Verify the key is in the dictionary\n\n'The Bodyguard' in release_year_dict",
+      "metadata": {
+        "trusted": true
+      },
+      "execution_count": 11,
+      "outputs": [
+        {
+          "execution_count": 11,
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": "True"
+          },
+          "metadata": {}
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": "soundtrack_dic = {\"The Bodyguard\":\"1992\", \"Saturday Night Fever\":\"1977\"}\nsoundtrack_dic",
+      "metadata": {
+        "trusted": true
+      },
+      "execution_count": 13,
+      "outputs": [
+        {
+          "execution_count": 13,
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": "{'The Bodyguard': '1992', 'Saturday Night Fever': '1977'}"
+          },
+          "metadata": {}
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": "soundtrack_dic.keys()",
+      "metadata": {
+        "trusted": true
+      },
+      "execution_count": 14,
+      "outputs": [
+        {
+          "execution_count": 14,
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": "dict_keys(['The Bodyguard', 'Saturday Night Fever'])"
+          },
+          "metadata": {}
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": "soundtrack_dic.values()",
+      "metadata": {
+        "trusted": true
+      },
+      "execution_count": 15,
+      "outputs": [
+        {
+          "execution_count": 15,
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": "dict_values(['1992', '1977'])"
+          },
+          "metadata": {}
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": "inventory = {}",
+      "metadata": {
+        "trusted": true
+      },
+      "execution_count": 20,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": "Product_No1 = \"Mobile phone\"\nProduct_No1_Quantity = 5\nProduct_No1_price = 20000\nProduct_No1_Release_Year = 2020\n",
+      "metadata": {
+        "trusted": true
+      },
+      "execution_count": 24,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": "inventory[\"ProductNo1\"]= Product_No1\ninventory[\"ProductNo1_Quantity\"]= Product_No1_Quantity\ninventory[\"ProductNo1_price\"]= Product_No1_price\ninventory[\"ProductNo1_ReleaseYear\"]=Product_No1_Release_Year",
+      "metadata": {
+        "trusted": true
+      },
+      "execution_count": 29,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": "Product_No2 = \"Laptop\"\nProduct_No2_Quantity = 10\nProduct_No2_price = 50000\nProduct_No2_Release_Year = 2023",
+      "metadata": {
+        "trusted": true
+      },
+      "execution_count": 31,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": "inventory[\"ProductNo2\"]= Product_No2\ninventory[\"ProductNo2_Quantity\"]= Product_No2_Quantity\ninventory[\"ProductNo2_price\"]= Product_No2_price\ninventory[\"ProductNo2_ReleaseYear\"]=Product_No2_Release_Year",
+      "metadata": {
+        "trusted": true
+      },
+      "execution_count": 32,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": "inventory",
+      "metadata": {
+        "trusted": true
+      },
+      "execution_count": 33,
+      "outputs": [
+        {
+          "execution_count": 33,
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": "{'ProductNo1': 'Mobile phone',\n 'ProductNo1_Quantity': 5,\n 'ProductNo1_price': 20000,\n 'ProductNo1_ReleaseYear': 2020,\n 'ProductNo2': 'Laptop',\n 'ProductNo2_Quantity': 10,\n 'ProductNo2_price': 50000,\n 'ProductNo2_ReleaseYear': 2023}"
+          },
+          "metadata": {}
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": "\"ProductNo1\" in inventory\n\"ProductNo2\" in inventory",
+      "metadata": {
+        "trusted": true
+      },
+      "execution_count": 34,
+      "outputs": [
+        {
+          "execution_count": 34,
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": "True"
+          },
+          "metadata": {}
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": "del(inventory[\"ProductNo1_ReleaseYear\"],inventory[\"ProductNo2_ReleaseYear\"])",
+      "metadata": {
+        "trusted": true
+      },
+      "execution_count": 37,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": "inventory",
+      "metadata": {
+        "trusted": true
+      },
+      "execution_count": 38,
+      "outputs": [
+        {
+          "execution_count": 38,
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": "{'ProductNo1': 'Mobile phone',\n 'ProductNo1_Quantity': 5,\n 'ProductNo1_price': 20000,\n 'ProductNo2': 'Laptop',\n 'ProductNo2_Quantity': 10,\n 'ProductNo2_price': 50000}"
+          },
+          "metadata": {}
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": "",
+      "metadata": {},
+      "execution_count": null,
+      "outputs": []
+    }
+  ]
+}
