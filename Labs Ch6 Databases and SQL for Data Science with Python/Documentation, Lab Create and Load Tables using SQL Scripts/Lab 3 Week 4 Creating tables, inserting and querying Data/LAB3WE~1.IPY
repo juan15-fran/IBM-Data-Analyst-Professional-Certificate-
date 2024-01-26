@@ -1,0 +1,455 @@
+{
+ "cells": [
+  {
+   "cell_type": "code",
+   "execution_count": 1,
+   "id": "f6ef5455-1b9f-4a91-9547-fb301efe30c7",
+   "metadata": {
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "# These libraries are pre-installed in SN Labs. If running in another environment please uncomment lines below to install them:\n",
+    "# !pip install --force-reinstall ibm_db==3.1.0 ibm_db_sa==0.3.3\n",
+    "# Ensure we don't load_ext with sqlalchemy>=1.4 (incompadible)\n",
+    "# !pip uninstall sqlalchemy==1.4 -y && pip install sqlalchemy==1.3.24\n",
+    "# !pip install ipython-sql"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 2,
+   "id": "973d8f81-a58a-4645-a3f4-23196dfaf068",
+   "metadata": {
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "import ibm_db"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 3,
+   "id": "6653d042-3978-4e4f-913e-f9902d5a87b5",
+   "metadata": {
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "#Replace the placeholder values with the actuals for your Db2 Service Credentials\n",
+    "dsn_driver = \"{IBM DB2 ODBC DRIVER}\"\n",
+    "dsn_database = \"bludb\"            # e.g. \"BLUDB\"\n",
+    "dsn_hostname = \"98538591-7217-4024-b027-8baa776ffad1.c3n41cmd0nqnrk39u98g.databases.appdomain.cloud\" # e.g.: \"54a2f15b-5c0f-46df-8954-7e38e612c2bd.c1ogj3sd0tgtu0lqde00.databases.appdomain.cloud\"\n",
+    "dsn_port = \"30875\"                # e.g. \"32733\" \n",
+    "dsn_protocol = \"TCPIP\"            # i.e. \"TCPIP\"\n",
+    "dsn_uid = \"bxh40907\"        # e.g. \"abc12345\"\n",
+    "dsn_pwd = \"Dcw5KUdbHbtettE8\"      # e.g. \"7dBZ3wWt9XN6$o0J\"\n",
+    "dsn_security = \"SSL\"              #i.e. \"SSL\"\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 4,
+   "id": "f2b89007-79c1-4712-b0eb-b6d78531c484",
+   "metadata": {
+    "tags": []
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Connected to database:  bludb as user:  bxh40907 on host:  98538591-7217-4024-b027-8baa776ffad1.c3n41cmd0nqnrk39u98g.databases.appdomain.cloud\n"
+     ]
+    }
+   ],
+   "source": [
+    "#Create database connection\n",
+    "#DO NOT MODIFY THIS CELL. Just RUN it with Shift + Enter\n",
+    "dsn = (\n",
+    "    \"DRIVER={0};\"\n",
+    "    \"DATABASE={1};\"\n",
+    "    \"HOSTNAME={2};\"\n",
+    "    \"PORT={3};\"\n",
+    "    \"PROTOCOL={4};\"\n",
+    "    \"UID={5};\"\n",
+    "    \"PWD={6};\"\n",
+    "    \"SECURITY={7};\").format(dsn_driver, dsn_database, dsn_hostname, dsn_port, dsn_protocol, dsn_uid, dsn_pwd,dsn_security)\n",
+    "\n",
+    "try:\n",
+    "    conn = ibm_db.connect(dsn, \"\", \"\")\n",
+    "    print (\"Connected to database: \", dsn_database, \"as user: \", dsn_uid, \"on host: \", dsn_hostname)\n",
+    "\n",
+    "except:\n",
+    "    print (\"Unable to connect: \", ibm_db.conn_errormsg() )"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 5,
+   "id": "fda61121-b34e-45ba-9369-cb3fb3c26905",
+   "metadata": {
+    "tags": []
+   },
+   "outputs": [
+    {
+     "ename": "Exception",
+     "evalue": "[IBM][CLI Driver][DB2/LINUXX8664] SQL0204N  \"BXH40907.INSTRUCTOR\" is an undefined name.  SQLSTATE=42704 SQLCODE=-204",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[0;31m---------------------------------------------------------------------------\u001b[0m",
+      "\u001b[0;31mException\u001b[0m                                 Traceback (most recent call last)",
+      "\u001b[0;32m/tmp/ipykernel_3103/595635871.py\u001b[0m in \u001b[0;36m<module>\u001b[0;34m\u001b[0m\n\u001b[1;32m      3\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m      4\u001b[0m \u001b[0;31m#Now execute the drop statment\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m----> 5\u001b[0;31m \u001b[0mdropStmt\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0mibm_db\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mexec_immediate\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mconn\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mdropQuery\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m",
+      "\u001b[0;31mException\u001b[0m: [IBM][CLI Driver][DB2/LINUXX8664] SQL0204N  \"BXH40907.INSTRUCTOR\" is an undefined name.  SQLSTATE=42704 SQLCODE=-204"
+     ]
+    }
+   ],
+   "source": [
+    "#Lets first drop the table INSTRUCTOR in case it exists from a previous attempt\n",
+    "dropQuery = \"drop table INSTRUCTOR\"\n",
+    "\n",
+    "#Now execute the drop statment\n",
+    "dropStmt = ibm_db.exec_immediate(conn, dropQuery)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 6,
+   "id": "52c53a59-efc3-41c0-ac50-e4379c5799ec",
+   "metadata": {
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "#Construct the Create Table DDL statement - replace the ... with rest of the statement\n",
+    "#createQuery = \"create table INSTRUCTOR(id INTEGER PRIMARY KEY NOT NULL, fname ...)\"\n",
+    "createQuery = \"create table INSTRUCTOR(ID INTEGER PRIMARY KEY NOT NULL, FNAME VARCHAR(20), LNAME VARCHAR(20), CITY VARCHAR(20), CCODE CHAR(2))\"\n",
+    "\n",
+    "createStmt = ibm_db.exec_immediate(conn,createQuery)\n",
+    "#Now fill in the name of the method and execute the statement\n",
+    "#createStmt = ibm_db.replace_with_name_of_execution_method(conn, createQuery)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 7,
+   "id": "6bf02a0b-e4ea-45c3-b265-f89f7ff42f5f",
+   "metadata": {
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "#Construct the query - replace ... with the insert statement\n",
+    "insertQuery = \"insert into INSTRUCTOR values (1, 'Rav', 'Ahuja', 'TORONTO', 'CA')\"\n",
+    "\n",
+    "#execute the insert statement\n",
+    "insertStmt = ibm_db.exec_immediate(conn, insertQuery)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 8,
+   "id": "9222c293-e248-4c92-9ff1-a2de1d95cda9",
+   "metadata": {
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "#replace ... with the insert statement that inerts the remaining two rows of data\n",
+    "insertQuery2 = \"insert into INSTRUCTOR values (2, 'Raul', 'Chong', 'Markham', 'CA'), (3, 'Hima', 'Vasudevan', 'Chicago', 'US')\"\n",
+    "\n",
+    "#execute the statement\n",
+    "insertStmt2 = ibm_db.exec_immediate(conn, insertQuery2)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 9,
+   "id": "4d1e115f-7f60-4105-be7e-18b58d8ce9c8",
+   "metadata": {
+    "tags": []
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "{'ID': 1,\n",
+       " 0: 1,\n",
+       " 'FNAME': 'Rav',\n",
+       " 1: 'Rav',\n",
+       " 'LNAME': 'Ahuja',\n",
+       " 2: 'Ahuja',\n",
+       " 'CITY': 'TORONTO',\n",
+       " 3: 'TORONTO',\n",
+       " 'CCODE': 'CA',\n",
+       " 4: 'CA'}"
+      ]
+     },
+     "execution_count": 9,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "#Construct the query that retrieves all rows from the INSTRUCTOR table\n",
+    "selectQuery = \"select * from INSTRUCTOR\"\n",
+    "\n",
+    "#Execute the statement\n",
+    "selectStmt = ibm_db.exec_immediate(conn, selectQuery)\n",
+    "\n",
+    "#Fetch the Dictionary (for the first row only)\n",
+    "ibm_db.fetch_both(selectStmt)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 10,
+   "id": "e5cf3410-fcf4-4d3d-bb3c-5fea4000df91",
+   "metadata": {
+    "tags": []
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      " ID: 2  FNAME: Raul\n",
+      " ID: 3  FNAME: Hima\n"
+     ]
+    }
+   ],
+   "source": [
+    "#Fetch the rest of the rows and print the ID and FNAME for those rows\n",
+    "while ibm_db.fetch_row(selectStmt) != False:\n",
+    "    print (\" ID:\",  ibm_db.result(selectStmt, 0), \" FNAME:\",  ibm_db.result(selectStmt, \"FNAME\"))"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 11,
+   "id": "be3db1f4-0af2-487a-b871-b808a7057ad3",
+   "metadata": {
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "updateQuery = \"update INSTRUCTOR set CITY='MOOSETOWN' where FNAME='Rav'\"\n",
+    "updateStmt = ibm_db.exec_immediate(conn, updateQuery)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 12,
+   "id": "ede7d097-aa71-427d-873f-79e496b97dad",
+   "metadata": {
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "import pandas\n",
+    "import ibm_db_dbi"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 13,
+   "id": "b36633e9-94c5-44da-a39a-22861520db70",
+   "metadata": {
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "#connection for pandas\n",
+    "pconn = ibm_db_dbi.Connection(conn)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 14,
+   "id": "7ce4b30c-48d1-44cb-82a7-29fcb092de5a",
+   "metadata": {
+    "tags": []
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "'Ahuja'"
+      ]
+     },
+     "execution_count": 14,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "#query statement to retrieve all rows in INSTRUCTOR table\n",
+    "selectQuery = \"select * from INSTRUCTOR\"\n",
+    "\n",
+    "#retrieve the query results into a pandas dataframe\n",
+    "pdf = pandas.read_sql(selectQuery, pconn)\n",
+    "\n",
+    "#print just the LNAME for first row in the pandas data frame\n",
+    "pdf.LNAME[0]"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 15,
+   "id": "43b283bb-d9cc-454c-92dd-4acf522330b2",
+   "metadata": {
+    "tags": []
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>ID</th>\n",
+       "      <th>FNAME</th>\n",
+       "      <th>LNAME</th>\n",
+       "      <th>CITY</th>\n",
+       "      <th>CCODE</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>0</th>\n",
+       "      <td>1</td>\n",
+       "      <td>Rav</td>\n",
+       "      <td>Ahuja</td>\n",
+       "      <td>MOOSETOWN</td>\n",
+       "      <td>CA</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>1</th>\n",
+       "      <td>2</td>\n",
+       "      <td>Raul</td>\n",
+       "      <td>Chong</td>\n",
+       "      <td>Markham</td>\n",
+       "      <td>CA</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>2</th>\n",
+       "      <td>3</td>\n",
+       "      <td>Hima</td>\n",
+       "      <td>Vasudevan</td>\n",
+       "      <td>Chicago</td>\n",
+       "      <td>US</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "   ID FNAME      LNAME       CITY CCODE\n",
+       "0   1   Rav      Ahuja  MOOSETOWN    CA\n",
+       "1   2  Raul      Chong    Markham    CA\n",
+       "2   3  Hima  Vasudevan    Chicago    US"
+      ]
+     },
+     "execution_count": 15,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "#print the entire data frame\n",
+    "pdf"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 16,
+   "id": "52d5331e-5e61-4bda-9a95-6d33df2dff0c",
+   "metadata": {
+    "tags": []
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "(3, 5)"
+      ]
+     },
+     "execution_count": 16,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "pdf.shape"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 17,
+   "id": "ed737e2d-1bdd-415b-979f-29c6bf1f0501",
+   "metadata": {
+    "tags": []
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "True"
+      ]
+     },
+     "execution_count": 17,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "ibm_db.close(conn)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "70604ec4-ebd3-476b-939e-2849c63d3e7d",
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python",
+   "language": "python",
+   "name": "conda-env-python-py"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.7.12"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 5
+}
