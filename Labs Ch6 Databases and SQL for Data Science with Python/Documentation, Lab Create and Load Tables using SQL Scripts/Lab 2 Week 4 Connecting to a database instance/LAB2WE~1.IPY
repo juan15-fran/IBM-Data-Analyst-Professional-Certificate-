@@ -1,0 +1,313 @@
+{
+ "cells": [
+  {
+   "cell_type": "code",
+   "execution_count": 1,
+   "id": "4495e67f-a485-4f62-8cbf-ddfd9aee1aa7",
+   "metadata": {
+    "tags": []
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Collecting ibm_db==3.1.0\n",
+      "  Using cached ibm_db-3.1.0-cp37-cp37m-linux_x86_64.whl\n",
+      "Collecting ibm_db_sa==0.3.3\n",
+      "  Using cached ibm_db_sa-0.3.3-py3-none-any.whl\n",
+      "Collecting sqlalchemy>=0.7.3 (from ibm_db_sa==0.3.3)\n",
+      "  Downloading SQLAlchemy-2.0.23-cp37-cp37m-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (3.0 MB)\n",
+      "\u001b[2K     \u001b[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m \u001b[32m3.0/3.0 MB\u001b[0m \u001b[31m63.6 MB/s\u001b[0m eta \u001b[36m0:00:00\u001b[0m:00:01\u001b[0m\n",
+      "\u001b[?25hCollecting typing-extensions>=4.2.0 (from sqlalchemy>=0.7.3->ibm_db_sa==0.3.3)\n",
+      "  Downloading typing_extensions-4.7.1-py3-none-any.whl (33 kB)\n",
+      "Collecting greenlet!=0.4.17 (from sqlalchemy>=0.7.3->ibm_db_sa==0.3.3)\n",
+      "  Downloading greenlet-3.0.1-cp37-cp37m-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl (568 kB)\n",
+      "\u001b[2K     \u001b[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m \u001b[32m569.0/569.0 kB\u001b[0m \u001b[31m50.2 MB/s\u001b[0m eta \u001b[36m0:00:00\u001b[0m\n",
+      "\u001b[?25hCollecting importlib-metadata (from sqlalchemy>=0.7.3->ibm_db_sa==0.3.3)\n",
+      "  Downloading importlib_metadata-6.7.0-py3-none-any.whl (22 kB)\n",
+      "Collecting zipp>=0.5 (from importlib-metadata->sqlalchemy>=0.7.3->ibm_db_sa==0.3.3)\n",
+      "  Downloading zipp-3.15.0-py3-none-any.whl (6.8 kB)\n",
+      "Installing collected packages: ibm_db, zipp, typing-extensions, greenlet, importlib-metadata, sqlalchemy, ibm_db_sa\n",
+      "  Attempting uninstall: ibm_db\n",
+      "    Found existing installation: ibm-db 3.1.0\n",
+      "    Uninstalling ibm-db-3.1.0:\n",
+      "      Successfully uninstalled ibm-db-3.1.0\n",
+      "  Attempting uninstall: zipp\n",
+      "    Found existing installation: zipp 3.15.0\n",
+      "    Uninstalling zipp-3.15.0:\n",
+      "      Successfully uninstalled zipp-3.15.0\n",
+      "  Attempting uninstall: typing-extensions\n",
+      "    Found existing installation: typing_extensions 4.5.0\n",
+      "    Uninstalling typing_extensions-4.5.0:\n",
+      "      Successfully uninstalled typing_extensions-4.5.0\n",
+      "  Attempting uninstall: importlib-metadata\n",
+      "    Found existing installation: importlib-metadata 4.11.4\n",
+      "    Uninstalling importlib-metadata-4.11.4:\n",
+      "      Successfully uninstalled importlib-metadata-4.11.4\n",
+      "  Attempting uninstall: sqlalchemy\n",
+      "    Found existing installation: SQLAlchemy 1.3.24\n",
+      "    Uninstalling SQLAlchemy-1.3.24:\n",
+      "      Successfully uninstalled SQLAlchemy-1.3.24\n",
+      "  Attempting uninstall: ibm_db_sa\n",
+      "    Found existing installation: ibm-db-sa 0.3.3\n",
+      "    Uninstalling ibm-db-sa-0.3.3:\n",
+      "      Successfully uninstalled ibm-db-sa-0.3.3\n",
+      "\u001b[31mERROR: pip's dependency resolver does not currently take into account all the packages that are installed. This behaviour is the source of the following dependency conflicts.\n",
+      "dash 2.9.3 requires dash-core-components==2.0.0, which is not installed.\n",
+      "dash 2.9.3 requires dash-html-components==2.0.0, which is not installed.\n",
+      "dash 2.9.3 requires dash-table==5.0.0, which is not installed.\u001b[0m\u001b[31m\n",
+      "\u001b[0mSuccessfully installed greenlet-3.0.1 ibm_db-3.1.0 ibm_db_sa-0.3.3 importlib-metadata-6.7.0 sqlalchemy-2.0.23 typing-extensions-4.7.1 zipp-3.15.0\n",
+      "Found existing installation: SQLAlchemy 2.0.23\n",
+      "Uninstalling SQLAlchemy-2.0.23:\n",
+      "  Successfully uninstalled SQLAlchemy-2.0.23\n",
+      "Collecting sqlalchemy==1.3.24\n",
+      "  Using cached SQLAlchemy-1.3.24-cp37-cp37m-manylinux2010_x86_64.whl (1.3 MB)\n",
+      "Installing collected packages: sqlalchemy\n",
+      "Successfully installed sqlalchemy-1.3.24\n",
+      "Requirement already satisfied: ipython-sql in /home/jupyterlab/conda/envs/python/lib/python3.7/site-packages (0.3.9)\n",
+      "Requirement already satisfied: prettytable in /home/jupyterlab/conda/envs/python/lib/python3.7/site-packages (from ipython-sql) (3.7.0)\n",
+      "Requirement already satisfied: ipython>=1.0 in /home/jupyterlab/conda/envs/python/lib/python3.7/site-packages (from ipython-sql) (7.33.0)\n",
+      "Requirement already satisfied: sqlalchemy>=0.6.7 in /home/jupyterlab/conda/envs/python/lib/python3.7/site-packages (from ipython-sql) (1.3.24)\n",
+      "Requirement already satisfied: sqlparse in /home/jupyterlab/conda/envs/python/lib/python3.7/site-packages (from ipython-sql) (0.4.4)\n",
+      "Requirement already satisfied: six in /home/jupyterlab/conda/envs/python/lib/python3.7/site-packages (from ipython-sql) (1.16.0)\n",
+      "Requirement already satisfied: ipython-genutils>=0.1.0 in /home/jupyterlab/conda/envs/python/lib/python3.7/site-packages (from ipython-sql) (0.2.0)\n",
+      "Requirement already satisfied: setuptools>=18.5 in /home/jupyterlab/conda/envs/python/lib/python3.7/site-packages (from ipython>=1.0->ipython-sql) (67.7.2)\n",
+      "Requirement already satisfied: jedi>=0.16 in /home/jupyterlab/conda/envs/python/lib/python3.7/site-packages (from ipython>=1.0->ipython-sql) (0.18.2)\n",
+      "Requirement already satisfied: decorator in /home/jupyterlab/conda/envs/python/lib/python3.7/site-packages (from ipython>=1.0->ipython-sql) (5.1.1)\n",
+      "Requirement already satisfied: pickleshare in /home/jupyterlab/conda/envs/python/lib/python3.7/site-packages (from ipython>=1.0->ipython-sql) (0.7.5)\n",
+      "Requirement already satisfied: traitlets>=4.2 in /home/jupyterlab/conda/envs/python/lib/python3.7/site-packages (from ipython>=1.0->ipython-sql) (5.9.0)\n",
+      "Requirement already satisfied: prompt-toolkit!=3.0.0,!=3.0.1,<3.1.0,>=2.0.0 in /home/jupyterlab/conda/envs/python/lib/python3.7/site-packages (from ipython>=1.0->ipython-sql) (3.0.38)\n",
+      "Requirement already satisfied: pygments in /home/jupyterlab/conda/envs/python/lib/python3.7/site-packages (from ipython>=1.0->ipython-sql) (2.15.1)\n",
+      "Requirement already satisfied: backcall in /home/jupyterlab/conda/envs/python/lib/python3.7/site-packages (from ipython>=1.0->ipython-sql) (0.2.0)\n",
+      "Requirement already satisfied: matplotlib-inline in /home/jupyterlab/conda/envs/python/lib/python3.7/site-packages (from ipython>=1.0->ipython-sql) (0.1.6)\n",
+      "Requirement already satisfied: pexpect>4.3 in /home/jupyterlab/conda/envs/python/lib/python3.7/site-packages (from ipython>=1.0->ipython-sql) (4.8.0)\n",
+      "Requirement already satisfied: importlib-metadata in /home/jupyterlab/conda/envs/python/lib/python3.7/site-packages (from prettytable->ipython-sql) (6.7.0)\n",
+      "Requirement already satisfied: wcwidth in /home/jupyterlab/conda/envs/python/lib/python3.7/site-packages (from prettytable->ipython-sql) (0.2.6)\n",
+      "Requirement already satisfied: parso<0.9.0,>=0.8.0 in /home/jupyterlab/conda/envs/python/lib/python3.7/site-packages (from jedi>=0.16->ipython>=1.0->ipython-sql) (0.8.3)\n",
+      "Requirement already satisfied: ptyprocess>=0.5 in /home/jupyterlab/conda/envs/python/lib/python3.7/site-packages (from pexpect>4.3->ipython>=1.0->ipython-sql) (0.7.0)\n",
+      "Requirement already satisfied: zipp>=0.5 in /home/jupyterlab/conda/envs/python/lib/python3.7/site-packages (from importlib-metadata->prettytable->ipython-sql) (3.15.0)\n",
+      "Requirement already satisfied: typing-extensions>=3.6.4 in /home/jupyterlab/conda/envs/python/lib/python3.7/site-packages (from importlib-metadata->prettytable->ipython-sql) (4.7.1)\n"
+     ]
+    }
+   ],
+   "source": [
+    "# These libraries are pre-installed in SN Labs. If running in another environment please uncomment lines below to install them:\n",
+    "!pip install --force-reinstall ibm_db==3.1.0 ibm_db_sa==0.3.3\n",
+    "# Ensure we don't load_ext with sqlalchemy>=1.4 (incompadible)\n",
+    "!pip uninstall sqlalchemy==1.4 -y && pip install sqlalchemy==1.3.24\n",
+    "!pip install ipython-sql"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 2,
+   "id": "2efcba73-4c84-4361-9a5c-45c2528c58ef",
+   "metadata": {
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "import ibm_db"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 3,
+   "id": "a277d681-2fc9-4055-bfbe-4d0a23f16ab8",
+   "metadata": {
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "#Replace the placeholder values with your actual Db2 hostname, username, and password:\n",
+    "dsn_hostname = \"98538591-7217-4024-b027-8baa776ffad1.c3n41cmd0nqnrk39u98g.databases.appdomain.cloud\" # e.g.: \"54a2f15b-5c0f-46df-8954-7e38e612c2bd.c1ogj3sd0tgtu0lqde00.databases.appdomain.cloud\"\n",
+    "dsn_uid = \"bxh40907\"        # e.g. \"abc12345\"\n",
+    "dsn_pwd = \"Dcw5KUdbHbtettE8\"      # e.g. \"7dBZ3wWt9XN6$o0J\"\n",
+    "\n",
+    "dsn_driver = \"{IBM DB2 ODBC DRIVER}\"\n",
+    "dsn_database = \"bludb\"            # e.g. \"BLUDB\"\n",
+    "dsn_port = \"30875\"                # e.g. \"32733\" \n",
+    "dsn_protocol = \"TCPIP\"            # i.e. \"TCPIP\"\n",
+    "dsn_security = \"SSL\"              #i.e. \"SSL\""
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 4,
+   "id": "bda04c0b-142a-472a-bd47-0a241de1fc18",
+   "metadata": {
+    "tags": []
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "DRIVER={IBM DB2 ODBC DRIVER};DATABASE=bludb;HOSTNAME=98538591-7217-4024-b027-8baa776ffad1.c3n41cmd0nqnrk39u98g.databases.appdomain.cloud;PORT=30875;PROTOCOL=TCPIP;UID=bxh40907;PWD=Dcw5KUdbHbtettE8;SECURITY=SSL;\n"
+     ]
+    }
+   ],
+   "source": [
+    "#DO NOT MODIFY THIS CELL. Just RUN it with Shift + Enter\n",
+    "#Create the dsn connection string\n",
+    "dsn = (\n",
+    "    \"DRIVER={0};\"\n",
+    "    \"DATABASE={1};\"\n",
+    "    \"HOSTNAME={2};\"\n",
+    "    \"PORT={3};\"\n",
+    "    \"PROTOCOL={4};\"\n",
+    "    \"UID={5};\"\n",
+    "    \"PWD={6};\"\n",
+    "    \"SECURITY={7};\").format(dsn_driver, dsn_database, dsn_hostname, dsn_port, dsn_protocol, dsn_uid, dsn_pwd,dsn_security)\n",
+    "\n",
+    "#print the connection string to check correct values are specified\n",
+    "print(dsn)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 7,
+   "id": "487b1bb5-6443-4890-b932-18fe28fe16b4",
+   "metadata": {
+    "tags": []
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Connected to database:  bludb as user:  bxh40907 on host:  98538591-7217-4024-b027-8baa776ffad1.c3n41cmd0nqnrk39u98g.databases.appdomain.cloud\n"
+     ]
+    }
+   ],
+   "source": [
+    "#DO NOT MODIFY THIS CELL. Just RUN it with Shift + Enter\n",
+    "#Create database connection\n",
+    "\n",
+    "try:\n",
+    "    conn = ibm_db.connect(dsn, \"\", \"\")\n",
+    "    print (\"Connected to database: \", dsn_database, \"as user: \", dsn_uid, \"on host: \", dsn_hostname)\n",
+    "\n",
+    "except:\n",
+    "    print (\"Unable to connect: \", ibm_db.conn_errormsg() )\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 8,
+   "id": "b8460085-f405-44e0-b295-1d2b956acac7",
+   "metadata": {
+    "tags": []
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "DBMS_NAME:  DB2/LINUXX8664\n",
+      "DBMS_VER:   11.05.0800\n",
+      "DB_NAME:    BLUDB\n"
+     ]
+    }
+   ],
+   "source": [
+    "#Retrieve Metadata for the Database Server\n",
+    "server = ibm_db.server_info(conn)\n",
+    "\n",
+    "print (\"DBMS_NAME: \", server.DBMS_NAME)\n",
+    "print (\"DBMS_VER:  \", server.DBMS_VER)\n",
+    "print (\"DB_NAME:   \", server.DB_NAME)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 9,
+   "id": "9e2f05b7-36cc-4bd8-bb05-d2397eb24a64",
+   "metadata": {
+    "tags": []
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "DRIVER_NAME:           libdb2.a\n",
+      "DRIVER_VER:            11.05.0800\n",
+      "DATA_SOURCE_NAME:      BLUDB\n",
+      "DRIVER_ODBC_VER:       03.51\n",
+      "ODBC_VER:              03.01.0000\n",
+      "ODBC_SQL_CONFORMANCE:  EXTENDED\n",
+      "APPL_CODEPAGE:         1208\n",
+      "CONN_CODEPAGE:         1208\n"
+     ]
+    }
+   ],
+   "source": [
+    "#Retrieve Metadata for the Database Client / Driver\n",
+    "client = ibm_db.client_info(conn)\n",
+    "\n",
+    "print (\"DRIVER_NAME:          \", client.DRIVER_NAME) \n",
+    "print (\"DRIVER_VER:           \", client.DRIVER_VER)\n",
+    "print (\"DATA_SOURCE_NAME:     \", client.DATA_SOURCE_NAME)\n",
+    "print (\"DRIVER_ODBC_VER:      \", client.DRIVER_ODBC_VER)\n",
+    "print (\"ODBC_VER:             \", client.ODBC_VER)\n",
+    "print (\"ODBC_SQL_CONFORMANCE: \", client.ODBC_SQL_CONFORMANCE)\n",
+    "print (\"APPL_CODEPAGE:        \", client.APPL_CODEPAGE)\n",
+    "print (\"CONN_CODEPAGE:        \", client.CONN_CODEPAGE)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 10,
+   "id": "8b593b1b-8f26-4235-9e71-2a08e85e4aa4",
+   "metadata": {
+    "tags": []
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "True"
+      ]
+     },
+     "execution_count": 10,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "ibm_db.close(conn)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "d7f28e95-155d-42b4-801c-00299d25a36f",
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python",
+   "language": "python",
+   "name": "conda-env-python-py"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.7.12"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 5
+}
